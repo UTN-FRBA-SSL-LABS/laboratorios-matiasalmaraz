@@ -28,17 +28,63 @@ void test_agregar_uno(void) {
 
 /* TODO: pegar aqui la funcion test_total_precio_unitario() */
 
+void test_total_precio_unitario(void) {
+    printf("\n[total: un producto, cantidad 1]\n");
+    Carrito c;
+    carrito_init(&c);
+    Producto p = {"Leche", 350, 1};
+    carrito_agregar(&c, p);
+    ASSERT_IGUAL(350, carrito_total(&c));
+}
+
+
 /* ═══════════════════════════════════════════════════════════════════════════
  *  PARTE B — Completar los blancos (ver README.md, Parte 5)
  * ═══════════════════════════════════════════════════════════════════════════ */
 
 /* TODO: pegar y completar la funcion test_total_con_cantidad() */
 
+void test_total_con_cantidad(void) {
+    printf("\n[total: un producto, cantidad 2]\n");
+    Carrito c;
+    carrito_init(&c);
+    Producto p = {"Leche", 350, 2};  /* 350 x 2 = 700 */
+    carrito_agregar(&c, p);
+    ASSERT_IGUAL(700, carrito_total(&c));  /* <-- completar el valor esperado */
+}
+
+
 /* ═══════════════════════════════════════════════════════════════════════════
  *  PARTE C — Escribir un test propio (ver README.md, Parte 7)
  * ═══════════════════════════════════════════════════════════════════════════ */
 
 /* TODO: escribir test_carrito_lleno() */
+
+void test_carrito_lleno()
+{
+    printf("\n[lleno: agregar 5to producto]\n");
+    Carrito c;
+    carrito_init(&c);
+    
+    Producto p = {"Leche", 350, 2};
+    carrito_agregar(&c, p);
+    
+    Producto p2 = {"Frutas", 200, 2};
+    carrito_agregar(&c, p2);
+    
+    Producto p3 = {"Verduras", 100, 2};
+    carrito_agregar(&c, p3);
+    
+    Producto p4 = {"Pan", 550, 2};
+    carrito_agregar(&c, p4);
+    
+    ASSERT_IGUAL(2400, carrito_total(&c));
+
+    Producto p5 = {"Carne", 1000, 1};
+    int res = carrito_agregar(&c, p5);
+
+    ASSERT_IGUAL(0, res);
+}
 
 /* ═══════════════════════════════════════════════════════════════════════════
  *  main
@@ -49,9 +95,9 @@ int main(void) {
     test_carrito_nuevo();
     test_agregar_uno();
     /* Descomentar a medida que agregues las funciones: */
-    /* test_total_precio_unitario(); */
-    /* test_total_con_cantidad();    */
-    /* test_carrito_lleno();         */
+    test_total_precio_unitario();
+    test_total_con_cantidad();
+    test_carrito_lleno();
     RESUMEN();
     return EXIT_CODE();
 }
